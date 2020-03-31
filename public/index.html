@@ -176,12 +176,12 @@
                 </tr>
               </thead> 
               <tbody>
-                <tr class="section__row">
-                  <td class="section__cell">1</td>
-                  <td class="section__cell">Taras</td>
-                  <td class="section__cell">Petrenko</td>
-                  <td class="section__cell">+380964705028</td>
-                  <td class="section__cell">Taraspetrenko04@gmail.com</td>
+                <tr class="section__row" v-for='user in users'>
+                  <td class="section__cell">{{user.id}}</td>
+                  <td class="section__cell">{{user.name}}</td>
+                  <td class="section__cell">{{user.surname}}</td>
+                  <td class="section__cell">{{user.phone}}</td>
+                  <td class="section__cell">{{user.email}}</td>
                   <td class="section__cell"><a href="#" class="section__edit" @click="showEditModal=true">Edit</a></td>
                   <td class="section__cell"><a href="#" class="section__delete">Delete</a></td>
                 </tr>
@@ -240,11 +240,33 @@
 
   <script>
     var app = new Vue({
-      el: "#app",
+      el: '#app',
       data: {
         users: [],
+        newUser: { id: '', name: '', surname: '', email: '', phone: ''},
+        currentUser: {},
         showCreateModal: false,
         showEditModal: false,
+      },
+      mounted: function(){
+        this.getAllUsers(); 
+      },
+      methods: {
+        getAllUsers(){ 
+          // console.log(app.currentUser)
+          if( localStorage.getItem('Users') == null ){
+            let defaultUsers = [
+              {id: 1, name: 'Taras', surname: 'Oetrenko', email: 'taraspetrenko04@gmail.com', phone: '+380964705028' },
+              {id: 2, name: 'Olha', surname: 'Kultes', email: 'OlaKultes@bigmir.net', phone: '+380974258877' },
+              {id: 3, name: 'Dmytro', surname: 'Levchuk', email: 'DimaLev@ukr.net', phone: '+380981235572' },
+            ]
+            localStorage.setItem('Users', JSON.stringify(defaultUsers));
+            this.users = localStorage.getItem('Users') ;
+          }else{
+            this.users = JSON.parse( localStorage.getItem('Users') );
+            console.log(this.users)
+          }
+        }
       }
     });
   </script>
