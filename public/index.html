@@ -7,11 +7,246 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <!-- STYLE -->
+  <style>
+    .container{
+      width: 1200px;
+      margin: 0 auto;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .header{
+      background-color: grey;
+      text-align: center;
+      padding: 20px 0px 20px 0px;
+      font-size: 25px;
+      color: #ffff
+    }
+    .section__nav{
+      margin-top: 30px;
+      border-top: 2px solid grey;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .section__title{
+      display: inline-block;
+      margin-left: 50px;
+    }
+    .section__add{
+      display: inline-block;
+      height: 40px;
+      background-color: rgb(67, 190, 120);
+      border-radius: 5px;
+      color: #ffff;
+      margin-right: 50px;
+    }
+    .section__add:hover{
+      background-color: rgb(113, 243, 169);
+    }
+    .section__table{
+      width: 100%;
+      margin: 0 auto;
+      table-layout:auto;
+      font-size: 14px;
+    }
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      }
+      th, td {
+        padding: 5px;
+      }
+      th {
+        text-align: left;
+      }
+      thead{
+        border: 3px solid;
+        background-color: lightgrey;
+      }
+      button{
+        cursor: pointer;
+      }
+      a{
+        text-decoration: none;
+        color: inherit;
+      }
+    .section__cell{
+     white-space: nowrap; /* Запрещаем перенос строк */
+      overflow: hidden; /* Обрезаем все, что не помещается в область */
+      /* text-overflow: ellipsis; Добавляем многоточие */
+      overflow-x: auto; /*  скрол по x*/
+    }
+    .section__edit{
+      background-color: rgb(216, 216, 56);
+      border: 1px solid  rgb(216, 216, 56);
+      border-radius: 3px;
+      padding: 3px 7px;
+    }
+    .section__edit:hover{
+      background-color: rgb(246, 246, 125);
+    }
+    .section__delete{
+      background-color: rgb(230, 53, 83);
+      border:  rgb(230, 53, 83);
+      border-radius: 3px;
+      padding: 3px 7px;
+    }
+    .section__delete:hover{
+      background-color: rgb(253, 161, 176);
+    }
+
+    .modal{
+      font-family: Arial, Helvetica, sans-serif;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    .modal_wrapper{
+      margin: 100px auto auto auto;
+      width: 400px;
+      background-color: #ffff;
+      border: 2px solid black;
+      padding: 15px;
+    }
+    .modal__head{
+      display: flex;
+      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal__close{
+      padding: 5px 10px;
+      border: 2px solid black;
+      background-color: grey;
+      cursor: pointer;
+    }
+    .modal__close:hover{
+      background-color: rgb(201, 192, 192);
+    }
+    .modal__form{
+      display: flex;
+      flex-direction: column;
+    }
+    .modal__input{
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    .modal_add{
+      padding: 5px 10px;
+      background-color: limegreen;
+    }
+
+
+
+  </style>
   <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <div id="app">
+      <div class="container">
+        <div class="header"> Vue.js Test</div>
+
+
+        <section class="section">
+          <div class="section__nav">
+            <h2 class="section__title">Users List</h2>
+            <button type="button" class="section__add" @click="showCreateModal=true">Add New User</button>
+          </div>
+
+
+          <div class="section__users">
+            <div class="section__wrapper">
+              <table class="section__table">
+                <thead>
+                <tr>
+                  <td class="section__cell">ID</td>
+                  <td class="section__cell">Name</td>
+                  <td class="section__cell">Surname</td>
+                  <td class="section__cell">Phone</td>
+                  <td class="section__cell">Email</td>
+                  <td class="section__cell">Edit</td>
+                  <td class="section__cell">Delet</td>
+                </tr>
+              </thead> 
+              <tbody>
+                <tr class="section__row">
+                  <td class="section__cell">1</td>
+                  <td class="section__cell">Taras</td>
+                  <td class="section__cell">Petrenko</td>
+                  <td class="section__cell">+380964705028</td>
+                  <td class="section__cell">Taraspetrenko04@gmail.com</td>
+                  <td class="section__cell"><a href="#" class="section__edit" @click="showEditModal=true">Edit</a></td>
+                  <td class="section__cell"><a href="#" class="section__delete">Delete</a></td>
+                </tr>
+              </tbody> 
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+
+
+<!-- Modal Create Window -->
+      <div class="modal" v-if="showCreateModal">
+          <div class="modal_wrapper">
+          <div class="modal__head">
+            <div class="modal__titile">Add New User</div>
+            <div class="modal__close" @click="showCreateModal=false">X</div>
+          </div>
+          <div class="modal__content">
+            <form action="post" class="modal__form">
+              <input type="text" class="modal__input" type="text" name="name" placeholder="Name" maxlength="15" required>
+              <input type="text" class="modal__input" type="text" name="surname" placeholder="Surname" maxlength="15" required>
+              <input type="text" class="modal__input" type="email" name="email" placeholder="E-mail" maxlength="25" required>
+              <input type="text" class="modal__input" type="tel" name="phone" placeholder="Phone" maxlength="15" required>
+              <input type="submit" class="modal_add" value="Create New User" > 
+            </form>
+          </div>
+          <!-- <div class="modal__footer">
+            <button class="modal_add" type="submit">Create New User</button>
+          </div> -->
+        </div>
+      </div>
+
+
+      <!-- Modal Edit Window -->
+      <div class="modal" v-if="showEditModal">
+        <div class="modal_wrapper">
+        <div class="modal__head">
+          <div class="modal__titile">Edit User</div>
+          <div class="modal__close" @click="showEditModal=false">X</div>
+        </div>
+        <div class="modal__content">
+          <form action="put" class="modal__form" >
+            <input type="text" class="modal__input" type="text" name="name" placeholder="Name" maxlength="15">
+            <input type="text" class="modal__input" type="text" name="surname" placeholder="Surname" maxlength="15">
+            <input type="text" class="modal__input" type="email" name="email" placeholder="E-mail" maxlength="25">
+            <input type="text" class="modal__input" type="tel" name="phone" placeholder="Phone" maxlength="15">
+            <input type="submit" class="modal_add" value="Update User" >
+          </form>
+        </div>
+      </div>
+    </div>
+
+    </div>
   </body>
+
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        users: [],
+        showCreateModal: false,
+        showEditModal: false,
+      }
+    });
+  </script>
+
 </html>
