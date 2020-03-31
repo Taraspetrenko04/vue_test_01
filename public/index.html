@@ -125,7 +125,8 @@
     }
     .modal__close{
       padding: 5px 10px;
-      border: 2px solid black;
+      border: 1px solid black;
+      border-radius: 3px;
       background-color: grey;
       cursor: pointer;
     }
@@ -143,6 +144,7 @@
     .modal_add{
       padding: 5px 10px;
       background-color: limegreen;
+      border-radius: 3px;
     }
 
 
@@ -202,11 +204,11 @@
           </div>
           <div class="modal__content">
             <form action="post" class="modal__form">
-              <input type="text" class="modal__input" type="text" name="name" placeholder="Name" maxlength="15" required>
-              <input type="text" class="modal__input" type="text" name="surname" placeholder="Surname" maxlength="15" required>
-              <input type="text" class="modal__input" type="email" name="email" placeholder="E-mail" maxlength="25" required>
-              <input type="text" class="modal__input" type="tel" name="phone" placeholder="Phone" maxlength="15" required>
-              <input type="submit" class="modal_add" value="Create New User" > 
+              <input type="text" class="modal__input" type="text" name="name" placeholder="Name" maxlength="15" required v-model="newUser.name">
+              <input type="text" class="modal__input" type="text" name="surname" placeholder="Surname" maxlength="15" required v-model="newUser.surname">
+              <input type="text" class="modal__input" type="email" name="email" placeholder="E-mail" maxlength="25" required v-model="newUser.email">
+              <input type="text" class="modal__input" type="tel" name="phone" placeholder="Phone" maxlength="15" required v-model="newUser.phone">
+              <input type="submit" class="modal_add" value="Create New User" v-on:click.prevent="addUser"> 
             </form>
           </div>
           <!-- <div class="modal__footer">
@@ -244,6 +246,7 @@
       data: {
         users: [],
         newUser: { id: '', name: '', surname: '', email: '', phone: ''},
+        // newUser: [],
         currentUser: {},
         showCreateModal: false,
         showEditModal: false,
@@ -253,7 +256,6 @@
       },
       methods: {
         getAllUsers(){ 
-          // console.log(app.currentUser)
           if( localStorage.getItem('Users') == null ){
             let defaultUsers = [
               {id: 1, name: 'Taras', surname: 'Oetrenko', email: 'taraspetrenko04@gmail.com', phone: '+380964705028' },
@@ -264,9 +266,33 @@
             this.users = localStorage.getItem('Users') ;
           }else{
             this.users = JSON.parse( localStorage.getItem('Users') );
-            console.log(this.users)
+            // console.log(this.users)
           }
+        },
+
+
+        addUser(){
+          
+          let newUser = { id: 12, name: this.newUser.name, surname: this.newUser.surname, email: this.newUser.surname, phone: this.newUser.phone}
+          console.log(newUser)
+          //ID generator
+          // let formData = app.toFormData(this.newUser);//Пустой обьект
+          let usersList = JSON.parse( localStorage.getItem('Users') );
+          usersList.push(newUser);
+          localStorage.removeItem('Users');
+          localStorage.setItem('Users', JSON.stringify(usersList));
+          this.getAllUsers();
+        },
+
+
+        toFormData(obj){
+          var formData = new FormData();
+          for( var i in obj){
+            formData.append(i, obj[i]);
+          }
+          return formData;
         }
+
       }
     });
   </script>
