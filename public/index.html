@@ -1,172 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
 
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
 
-  <!-- STYLE -->
-  <style>
-    .container{
-      width: 1200px;
-      margin: 0 auto;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    .header{
-      background-color: grey;
-      text-align: center;
-      padding: 20px 0px 20px 0px;
-      font-size: 25px;
-      color: #ffff
-    }
-    .section__nav{
-      margin-top: 30px;
-      border-top: 2px solid grey;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .section__title{
-      display: inline-block;
-      margin-left: 50px;
-    }
-    .section__add{
-      display: inline-block;
-      height: 40px;
-      background-color: rgb(67, 190, 120);
-      border-radius: 5px;
-      color: #ffff;
-      margin-right: 50px;
-    }
-    .section__add:hover{
-      background-color: rgb(113, 243, 169);
-    }
-    .section__table{
-      width: 100%;
-      margin: 0 auto;
-      table-layout:auto;
-      font-size: 14px;
-    }
-    table, th, td {
-      border: 1px solid black;
-      border-collapse: collapse;
-      }
-      th, td {
-        padding: 5px;
-      }
-      th {
-        text-align: left;
-      }
-      thead{
-        border: 3px solid;
-        background-color: lightgrey;
-      }
-      button{
-        cursor: pointer;
-      }
-      a{
-        text-decoration: none;
-        color: inherit;
-      }
-    .section__cell{
-     white-space: nowrap; /* Запрещаем перенос строк */
-      overflow: hidden; /* Обрезаем все, что не помещается в область */
-      /* text-overflow: ellipsis; Добавляем многоточие */
-      overflow-x: auto; /*  скрол по x*/
-    }
-    .section__edit{
-      background-color: rgb(216, 216, 56);
-      border: 1px solid  rgb(216, 216, 56);
-      border-radius: 3px;
-      padding: 3px 7px;
-    }
-    .section__edit:hover{
-      background-color: rgb(246, 246, 125);
-    }
-    .section__delete{
-      background-color: rgb(230, 53, 83);
-      border:  rgb(230, 53, 83);
-      border-radius: 3px;
-      padding: 3px 7px;
-    }
-    .section__delete:hover{
-      background-color: rgb(253, 161, 176);
-    }
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
-    .modal{
-      font-family: Arial, Helvetica, sans-serif;
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      opacity: 1;
-      background: rgba(0, 0, 0, 0.5);
-    }
-    .modal_wrapper{
-      margin: 100px auto auto auto;
-      width: 400px;
-      background-color: #ffff;
-      border: 2px solid black;
-      padding: 15px;
-    }
-    .modal__head{
-      display: flex;
-      margin-bottom: 20px;
-      font-size: 20px;
-      font-weight: bold;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .modal__close{
-      padding: 5px 10px;
-      border: 1px solid black;
-      border-radius: 3px;
-      background-color: grey;
-      cursor: pointer;
-    }
-    .modal__close:hover{
-      background-color: rgb(201, 192, 192);
-    }
-    .modal__form{
-      display: flex;
-      flex-direction: column;
-    }
-    .modal__input{
-      padding: 5px;
-      margin-bottom: 10px;
-    }
-    .modal_add{
-      padding: 5px 10px;
-      background-color: limegreen;
-      border-radius: 3px;
-    }
+<!-- STYLE -->
+<style>
+  .container {
+    width: 1200px;
+    margin: 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .header {
+    background-color: grey;
+    text-align: center;
+    padding: 20px 0px 20px 0px;
+    font-size: 25px;
+    color: #ffff
+  }
+
+  .section__nav {
+    margin-top: 30px;
+    border-top: 2px solid grey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .section__title {
+    display: inline-block;
+    margin-left: 50px;
+  }
+
+  .section__add {
+    display: inline-block;
+    height: 40px;
+    background-color: rgb(67, 190, 120);
+    border-radius: 5px;
+    color: #ffff;
+    margin-right: 50px;
+  }
+
+  .section__add:hover {
+    background-color: rgb(113, 243, 169);
+  }
+
+  .section__table {
+    width: 100%;
+    margin: 0 auto;
+    table-layout: auto;
+    font-size: 14px;
+  }
+
+  table,
+  th,
+  td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 5px;
+  }
+
+  th {
+    text-align: left;
+  }
+
+  thead {
+    border: 3px solid;
+    background-color: lightgrey;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .section__cell {
+    white-space: nowrap;
+    /* Запрещаем перенос строк */
+    overflow: hidden;
+    /* Обрезаем все, что не помещается в область */
+    /* text-overflow: ellipsis; Добавляем многоточие */
+    overflow-x: auto;
+  }
+
+  .section__edit {
+    background-color: rgb(216, 216, 56);
+    border: 1px solid rgb(216, 216, 56);
+    border-radius: 3px;
+    padding: 3px 7px;
+  }
+
+  .section__edit:hover {
+    background-color: rgb(246, 246, 125);
+  }
+
+  .section__delete {
+    background-color: rgb(230, 53, 83);
+    border: rgb(230, 53, 83);
+    border-radius: 3px;
+    padding: 3px 7px;
+  }
+
+  .section__delete:hover {
+    background-color: rgb(253, 161, 176);
+  }
+
+  .modal {
+    font-family: Arial, Helvetica, sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .modal_wrapper {
+    margin: 100px auto auto auto;
+    width: 400px;
+    background-color: #ffff;
+    border: 2px solid black;
+    padding: 15px;
+  }
+
+  .modal__head {
+    display: flex;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal__close {
+    padding: 5px 10px;
+    border: 1px solid black;
+    border-radius: 3px;
+    background-color: grey;
+    cursor: pointer;
+  }
+
+  .modal__close:hover {
+    background-color: rgb(201, 192, 192);
+  }
+
+  .modal__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal__input {
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+
+  .modal_add {
+    padding: 5px 10px;
+    background-color: limegreen;
+    border-radius: 3px;
+  }
+</style>
+
+<body>
+  <div id="app">
+    <div class="container">
+      <div class="header"> Vue.js Test</div>
 
 
-
-  </style>
-  <body>
-    <div id="app">
-      <div class="container">
-        <div class="header"> Vue.js Test</div>
-
-
-        <section class="section">
-          <div class="section__nav">
-            <h2 class="section__title">Users List</h2>
-            <button type="button" class="section__add" @click="showCreateModal=true">Add New User</button>
-          </div>
+      <section class="section">
+        <div class="section__nav">
+          <h2 class="section__title">Users List</h2>
+          <button type="button" class="section__add" @click="showCreateModal=true">Add New User</button>
+        </div>
 
 
-          <div class="section__users">
-            <div class="section__wrapper">
-              <table class="section__table">
-                <thead>
+        <div class="section__users">
+          <div class="section__wrapper">
+            <table class="section__table">
+              <thead>
                 <tr>
                   <td class="section__cell">ID</td>
                   <td class="section__cell">Name</td>
@@ -176,7 +204,7 @@
                   <td class="section__cell">Edit</td>
                   <td class="section__cell">Delet</td>
                 </tr>
-              </thead> 
+              </thead>
               <tbody>
                 <tr class="section__row" v-for='user in users'>
                   <td class="section__cell">{{user.id}}</td>
@@ -184,117 +212,150 @@
                   <td class="section__cell">{{user.surname}}</td>
                   <td class="section__cell">{{user.phone}}</td>
                   <td class="section__cell">{{user.email}}</td>
-                  <td class="section__cell"><a href="#" class="section__edit" @click="showEditModal=true">Edit</a></td>
-                  <td class="section__cell"><a href="#" class="section__delete">Delete</a></td>
+                  <td class="section__cell"><a href="#" class="section__edit"
+                      @click="showEditModal=true; selectUser(user);">Edit</a></td>
+                  <td class="section__cell"><a href="#" class="section__delete"
+                      @click="selectUser(user); deleteUser()">Delete</a></td>
                 </tr>
-              </tbody> 
-              </table>
-            </div>
+              </tbody>
+            </table>
           </div>
-        </section>
-      </div>
-
-
-<!-- Modal Create Window -->
-      <div class="modal" v-if="showCreateModal">
-          <div class="modal_wrapper">
-          <div class="modal__head">
-            <div class="modal__titile">Add New User</div>
-            <div class="modal__close" @click="showCreateModal=false">X</div>
-          </div>
-          <div class="modal__content">
-            <form action="post" class="modal__form">
-              <input type="text" class="modal__input" type="text" name="name" placeholder="Name" maxlength="15" required v-model="newUser.name">
-              <input type="text" class="modal__input" type="text" name="surname" placeholder="Surname" maxlength="15" required v-model="newUser.surname">
-              <input type="text" class="modal__input" type="email" name="email" placeholder="E-mail" maxlength="25" required v-model="newUser.email">
-              <input type="text" class="modal__input" type="tel" name="phone" placeholder="Phone" maxlength="15" required v-model="newUser.phone">
-              <input type="submit" class="modal_add" value="Create New User" v-on:click.prevent="addUser"> 
-            </form>
-          </div>
-          <!-- <div class="modal__footer">
-            <button class="modal_add" type="submit">Create New User</button>
-          </div> -->
         </div>
-      </div>
+      </section>
+    </div>
 
 
-      <!-- Modal Edit Window -->
-      <div class="modal" v-if="showEditModal">
-        <div class="modal_wrapper">
+    <!-- Modal Create Window -->
+    <div class="modal" v-if="showCreateModal">
+      <div class="modal_wrapper">
         <div class="modal__head">
-          <div class="modal__titile">Edit User</div>
-          <div class="modal__close" @click="showEditModal=false">X</div>
+          <div class="modal__titile">Add New User</div>
+          <div class="modal__close" @click="showCreateModal=false">X</div>
         </div>
         <div class="modal__content">
-          <form action="put" class="modal__form" >
-            <input type="text" class="modal__input" type="text" name="name" placeholder="Name" maxlength="15">
-            <input type="text" class="modal__input" type="text" name="surname" placeholder="Surname" maxlength="15">
-            <input type="text" class="modal__input" type="email" name="email" placeholder="E-mail" maxlength="25">
-            <input type="text" class="modal__input" type="tel" name="phone" placeholder="Phone" maxlength="15">
-            <input type="submit" class="modal_add" value="Update User" >
+          <form action="post" class="modal__form">
+            <input type="text" class="modal__input" type="text" name="name" placeholder="Name" maxlength="15" required
+              v-model="newUser.name">
+            <input type="text" class="modal__input" type="text" name="surname" placeholder="Surname" maxlength="15"
+              required v-model="newUser.surname">
+            <input type="text" class="modal__input" type="email" name="email" placeholder="E-mail" maxlength="25"
+              required v-model="newUser.email">
+            <input type="text" class="modal__input" type="tel" name="phone" placeholder="Phone" maxlength="15" required
+              v-model="newUser.phone">
+            <input type="submit" class="modal_add" value="Create New User" v-on:click.prevent="addUser">
           </form>
         </div>
       </div>
     </div>
 
+
+    <!-- Modal Edit Window -->
+    <div class="modal" v-if="showEditModal">
+      <div class="modal_wrapper">
+        <div class="modal__head">
+          <div class="modal__titile">Edit User</div>
+          <div class="modal__close" @click="showEditModal=false">X</div>
+        </div>
+        <div class="modal__content">
+          <form action="put" class="modal__form">
+            <input type="text" class="modal__input" type="text" name="name" maxlength="15" v-model="currentUser.name">
+            <input type="text" class="modal__input" type="text" name="surname" maxlength="15"
+              v-model="currentUser.surname">
+            <input type="text" class="modal__input" type="email" name="email" maxlength="25"
+              v-model="currentUser.email">
+            <input type="text" class="modal__input" type="tel" name="phone" maxlength="15" v-model="currentUser.phone">
+            <input type="submit" class="modal_add" value="Update User" v-on:click.prevent="updateUser">
+          </form>
+        </div>
+      </div>
     </div>
-  </body>
 
-  <script>
-    var app = new Vue({
-      el: '#app',
-      data: {
-        users: [],
-        newUser: { id: '', name: '', surname: '', email: '', phone: ''},
-        // newUser: [],
-        currentUser: {},
-        showCreateModal: false,
-        showEditModal: false,
-      },
-      mounted: function(){
-        this.getAllUsers(); 
-      },
-      methods: {
-        getAllUsers(){ 
-          if( localStorage.getItem('Users') == null ){
-            let defaultUsers = [
-              {id: 1, name: 'Taras', surname: 'Oetrenko', email: 'taraspetrenko04@gmail.com', phone: '+380964705028' },
-              {id: 2, name: 'Olha', surname: 'Kultes', email: 'OlaKultes@bigmir.net', phone: '+380974258877' },
-              {id: 3, name: 'Dmytro', surname: 'Levchuk', email: 'DimaLev@ukr.net', phone: '+380981235572' },
-            ]
-            localStorage.setItem('Users', JSON.stringify(defaultUsers));
-            this.users = localStorage.getItem('Users') ;
-          }else{
-            this.users = JSON.parse( localStorage.getItem('Users') );
-            // console.log(this.users)
-          }
-        },
+  </div>
+</body>
 
 
-        addUser(){
-          
-          let newUser = { id: 12, name: this.newUser.name, surname: this.newUser.surname, email: this.newUser.surname, phone: this.newUser.phone}
-          console.log(newUser)
-          //ID generator
-          // let formData = app.toFormData(this.newUser);//Пустой обьект
-          let usersList = JSON.parse( localStorage.getItem('Users') );
-          usersList.push(newUser);
-          localStorage.removeItem('Users');
-          localStorage.setItem('Users', JSON.stringify(usersList));
-          this.getAllUsers();
-        },
-
-
-        toFormData(obj){
-          var formData = new FormData();
-          for( var i in obj){
-            formData.append(i, obj[i]);
-          }
-          return formData;
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      users: [],
+      newUser: { id: '', name: '', surname: '', email: '', phone: '' },
+      currentUser: {},
+      showCreateModal: false,
+      showEditModal: false,
+    },
+    mounted: function () {
+      this.getAllUsers();
+    },
+    methods: {
+      getAllUsers() {
+        if (localStorage.getItem('Users') == null) {
+          let defaultUsers = [
+            { id: 1, name: 'Taras', surname: 'Oetrenko', email: 'taraspetrenko04@gmail.com', phone: '+380964705028' },
+            { id: 2, name: 'Olha', surname: 'Kultes', email: 'OlaKultes@bigmir.net', phone: '+380974258877' },
+            { id: 3, name: 'Dmytro', surname: 'Levchuk', email: 'DimaLev@ukr.net', phone: '+380981235572' },
+          ]
+          localStorage.setItem('Users', JSON.stringify(defaultUsers));
+          this.users = JSON.parse(localStorage.getItem('Users'));
+        } else {
+          this.users = JSON.parse(localStorage.getItem('Users'));
         }
+      },
 
-      }
-    });
-  </script>
+
+      addUser() {
+        let rndId = +Math.floor(Math.random() * 9999);
+        let newUser = { id: rndId, name: this.newUser.name, surname: this.newUser.surname, email: this.newUser.surname, phone: this.newUser.phone };
+        let usersList = JSON.parse(localStorage.getItem('Users'));
+        usersList.push(newUser);
+        localStorage.removeItem('Users');
+        localStorage.setItem('Users', JSON.stringify(usersList));
+        this.getAllUsers();
+        this.showCreateModal = false;
+        this.newUser = { id: '', name: '', surname: '', email: '', phone: '' };
+      },
+
+
+      updateUser() {
+        let udatedUser = { id: this.currentUser.id, name: this.currentUser.name, surname: this.currentUser.surname, email: this.currentUser.email, phone: this.currentUser.phone };
+        let usersList = JSON.parse(localStorage.getItem('Users'));
+        let indexUser = '';
+        usersList.forEach(function (elem, index) {
+          if (elem.id == udatedUser.id) {
+            return indexUser = index;
+          }
+        })
+        localStorage.removeItem('Users');
+        localStorage.setItem('Users', JSON.stringify([...usersList.slice(0, indexUser),
+          udatedUser, ...usersList.slice(indexUser + 1)]));
+        this.showEditModal = false
+      },
+
+
+      deleteUser() {
+        let deletedUser = { id: this.currentUser.id, name: this.currentUser.name, surname: this.currentUser.surname, email: this.currentUser.email, phone: this.currentUser.phone };
+        let indexUser = '';
+        let usersList = JSON.parse(localStorage.getItem('Users'));
+        usersList.forEach(function (elem, index) {
+          if (elem.id == deletedUser.id) {
+            return indexUser = index;
+          }
+        })
+        localStorage.removeItem('Users');
+        localStorage.setItem('Users', JSON.stringify([...usersList.slice(0, indexUser),
+        ...usersList.slice(indexUser + 1)]));
+        this.getAllUsers();
+      },
+
+
+
+      selectUser(user) {
+        this.currentUser = user;
+      },
+
+
+    }
+  });
+</script>
 
 </html>
